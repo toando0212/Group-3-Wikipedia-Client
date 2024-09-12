@@ -9,7 +9,6 @@
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
-        <!-- Hình ảnh của bài viết -->
         <ImageView
             android:id="@+id/articleImage"
             android:layout_width="match_parent"
@@ -17,7 +16,6 @@
             android:scaleType="centerCrop"
             />
 
-        <!-- Tiêu đề bài viết -->
         <TextView
             android:id="@+id/articleTitle"
             android:layout_width="wrap_content"
