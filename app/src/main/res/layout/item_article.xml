@@ -7,7 +7,7 @@
 
     <!-- Hình ảnh thumbnail cho bài viết -->
     <ImageView
-        android:id="@+id/articleThumbnail"
+        android:id="@+id/articleImage"
         android:layout_width="80dp"
         android:layout_height="80dp"
         android:layout_marginEnd="8dp"
