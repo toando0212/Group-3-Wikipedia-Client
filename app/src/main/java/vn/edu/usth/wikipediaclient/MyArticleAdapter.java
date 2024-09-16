@@ -30,6 +30,8 @@ public class MyArticleAdapter extends RecyclerView.Adapter {
 
     public void onBindViewHolder (@NonNull RecyclerView.ViewHolder holder, int position) {
         Article article = articleList.get(position);
+
+        //assign data for article
         ArticleViewHolder articleViewHolder = (ArticleViewHolder) holder;
         articleViewHolder.title.setText(article.getTitle());
         articleViewHolder.description.setText(article.getDescription());
@@ -40,7 +42,7 @@ public class MyArticleAdapter extends RecyclerView.Adapter {
         fullArticleButton.setBackgroundColor(context.getResources().getColor(android.R.color.darker_gray));
 
         fullArticleButton.setOnClickListener(v -> {
-            // khi bấm nút "Full Articles, mở ArticleDetailActivity
+            //handle click button Full Article event
             Intent intent = new Intent(context, FullArticlelActivity.class);
             intent.putExtra("title", article.getTitle());
             intent.putExtra("content", article.getContent()); // Truyền nội dung chi tiết
@@ -54,6 +56,7 @@ public class MyArticleAdapter extends RecyclerView.Adapter {
         return articleList.size();
     }
 
+    //create view holder for article
     public class ArticleViewHolder extends RecyclerView.ViewHolder {
         TextView title, description;
         ImageView image;

@@ -11,6 +11,7 @@ public class MainActivity extends AppCompatActivity {
     private TabLayout tabLayout;
     private ViewPager viewPager;
 
+    //set icon for tabs
     private void setupTabIcons() {
         tabLayout.getTabAt(0).setIcon(R.drawable.ic_explore);
         tabLayout.getTabAt(1).setIcon(R.drawable.ic_history);
@@ -23,14 +24,17 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        //setup ViewPager, TabLayout
+        //setup ViewPager
         viewPager = findViewById(R.id.viewPager);
         ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
 
         viewPager.setAdapter(adapter);
 
+        //setup TabLayout
         tabLayout = findViewById(R.id.tabLayout);
         tabLayout.setupWithViewPager(viewPager);
+
+        //set icon for tabs
         setupTabIcons();
     }
 

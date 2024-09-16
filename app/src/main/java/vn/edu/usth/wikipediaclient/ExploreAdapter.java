@@ -22,7 +22,7 @@ public class ExploreAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
     }
 
     public int getItemViewType(int position) {
-        // Giả sử bài viết đầu tiên là tin nổi bật
+        // first article is featured
         if (position == 0) {
             return 0;       //featured
         } else {
@@ -37,6 +37,7 @@ public class ExploreAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
 ////        View view = LayoutInflater.from(context).inflate(R.layout.item_article, parent, false);
 ////        return new ViewHolder(view);
 
+        // assign layout for featured
         if (viewType == 0) {
             View view = LayoutInflater.from(context).inflate(R.layout.item_featured, parent, false);
             return new FeaturedViewHolder(view);
@@ -54,7 +55,7 @@ public class ExploreAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
 //        holder.descriptionTextView.setText(article.getDescription());
 //        holder.imageImageView.setImageResource(article.getImageResourceId());
 
-        //gán dữ liệu cho bài viết nổi bật
+        //assign data for featured
         if (holder.getItemViewType() == 0) {
             FeaturedViewHolder featuredViewHolder = (FeaturedViewHolder) holder;
 
@@ -62,7 +63,7 @@ public class ExploreAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
             featuredViewHolder.description.setText(article.getDescription());
             featuredViewHolder.image.setImageResource(article.getImageResourceId());
         }
-        // gán cho bài viết thường
+        // assign data for article
         else {
             ArticleViewHolder articleViewHolder = (ArticleViewHolder) holder;
 
@@ -71,12 +72,11 @@ public class ExploreAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
             articleViewHolder.image.setImageResource(article.getImageResourceId());
         }
 
-        // Đổi màu nút thành màu xám
         Button fullArticleButton = holder.itemView.findViewById(R.id.buttonFullArticle);
         fullArticleButton.setBackgroundColor(context.getResources().getColor(android.R.color.darker_gray));
 
+        //handle click button Full Article event
         fullArticleButton.setOnClickListener(v -> {
-            // khi bấm nút "Full Articles, mở ArticleDetailActivity
             Intent intent = new Intent(context, FullArticlelActivity.class);
             intent.putExtra("title", article.getTitle());
             intent.putExtra("content", article.getContent()); // Truyền nội dung chi tiết
@@ -106,6 +106,7 @@ public class ExploreAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
 ////        }
 //    }
 
+    //create view holder for featured
     public class FeaturedViewHolder extends RecyclerView.ViewHolder {
         TextView title, description, date, category;
         ImageView image;
@@ -117,6 +118,7 @@ public class ExploreAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
         }
     }
 
+    //create view holder for article
     public class ArticleViewHolder extends RecyclerView.ViewHolder {
         TextView title, description;
         ImageView image;

@@ -74,6 +74,7 @@ public class MyArticleFragment extends Fragment {
 
         Button addArticleButton = view.findViewById(R.id.buttonAddArticle);
 
+        //handle click button Add Article event
         addArticleButton.setOnClickListener(v -> {
             Intent intent = new Intent(getActivity(), AddArticleActivity.class);
             getActivity().startActivity(intent);
@@ -82,6 +83,7 @@ public class MyArticleFragment extends Fragment {
         recyclerView = view.findViewById(R.id.recyclerViewExplore);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
+        //mock dât
         articleList = new ArrayList<>();
         articleList.add(new Article("John Rolph", "Member of the Legislative Assembly of the Province of Canada for Norfolk County", "John Rolph (4 March 1793 – 19 October 1870) was a Canadian physician, lawyer, and political figure. As a politician, he was considered the leader of the Reform faction in the 1820s and helped plan the Upper Canada Rebellion. As a doctor, he founded several medical schools and incorporated new teaching techniques and medical procedures into his lectures. However, his actions against rival medical schools decreased public confidence in the ability of medical professionals to regulate themselves.\n" +
                 "\n" +
@@ -95,7 +97,7 @@ public class MyArticleFragment extends Fragment {
                 "The combination of Typhoon Yagi and the southwest monsoon led to heavy rains over Luzon, causing widespread flash floods in various areas. The Hong Kong Observatory issued a Gale or Storm No. 8 warning as Typhoon Yagi approached. Power outages and downed trees were reported in Hainan. In preparation for Typhoon Yagi, schools and transport services in areas within the storm’s trajectory were closed. In Vietnam, several structures, including electric poles, were uprooted, leading to power outages in various areas. Yagi also brought heavy rainfall that caused flooding in Luang Namtha Province, Laos. Flooding also occurred in Bokeo Province. In Thailand, around 9,000 families were affected. In Shan State, Myanmar, over 200 houses were damaged, and communication lines in Tachileik were cut by floods. In total, the typhoon caused at least 209 deaths, 901 wounded, and left 171 people missing, resulting in US$9.33 billion in damage across eight countries.",  R.drawable.typhoon_yagi));
         articleList.add(new Article("September 11 attacks", "Part of terrorism in the United States", "The September 11 attacks, commonly known as 9/11,[f] were four coordinated Islamist terrorist suicide attacks carried out by al-Qaeda against the United States in 2001. On that morning, 19 terrorists hijacked four commercial airliners scheduled to travel from the East Coast to California. The hijackers crashed the first two planes into the Twin Towers of the World Trade Center in New York City and aimed the next two flights toward targets in or near Washington, D.C., in an attack on the nation's capital. The third team succeeded in striking the Pentagon, the headquarters of the U.S. Department of Defense in Arlington County, Virginia, while the fourth plane crashed in rural Pennsylvania during a passenger revolt. The September 11 attacks killed 2,977 people, making it the deadliest terrorist attack in history. In response to the attacks, the United States waged the multi-decade global war on terror to eliminate hostile groups deemed terrorist organizations, as well as the foreign governments purported to support them, in Afghanistan, Iraq, Syria, and several other countries.", R.drawable.attack));
 
-
+        //set the adapter to recycler view
         myArticleAdapter = new MyArticleAdapter(articleList);
         recyclerView.setAdapter(myArticleAdapter);
 

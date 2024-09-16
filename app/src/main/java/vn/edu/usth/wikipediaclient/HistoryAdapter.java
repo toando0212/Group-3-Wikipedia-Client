@@ -31,17 +31,17 @@ public class HistoryAdapter extends RecyclerView.Adapter {
     public void onBindViewHolder (@NonNull RecyclerView.ViewHolder holder, int position) {
         Article article = articleList.get(position);
 
+        //assign data for article
         ArticleViewHolder articleViewHolder = (ArticleViewHolder) holder;
         articleViewHolder.title.setText(article.getTitle());
         articleViewHolder.description.setText(article.getDescription());
         articleViewHolder.image.setImageResource(article.getImageResourceId());
 
-        // Đổi màu nút thành màu xám
         Button fullArticleButton = holder.itemView.findViewById(R.id.buttonFullArticle);
         fullArticleButton.setBackgroundColor(context.getResources().getColor(android.R.color.darker_gray));
 
         fullArticleButton.setOnClickListener(v -> {
-            // khi bấm nút "Full Articles, mở ArticleDetailActivity
+            //handle click button Full Article event
             Intent intent = new Intent(context, FullArticlelActivity.class);
             intent.putExtra("title", article.getTitle());
             intent.putExtra("content", article.getContent()); // Truyền nội dung chi tiết
@@ -55,6 +55,7 @@ public class HistoryAdapter extends RecyclerView.Adapter {
         return articleList.size();
     }
 
+    //create view holder for article
     public class ArticleViewHolder extends RecyclerView.ViewHolder {
         TextView title, description;
         ImageView image;

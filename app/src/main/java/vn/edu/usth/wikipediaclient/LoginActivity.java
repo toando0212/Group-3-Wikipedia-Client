@@ -18,6 +18,7 @@ public class LoginActivity extends AppCompatActivity {
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_login);
 
+        //initialize login form fields and button
         EditText username = findViewById(R.id.loginUsername);
         EditText password = findViewById(R.id.loginPassword);
         Button loginButton = findViewById(R.id.buttonLogin);

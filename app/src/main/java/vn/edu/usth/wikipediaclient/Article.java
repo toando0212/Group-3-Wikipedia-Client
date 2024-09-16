@@ -8,6 +8,7 @@ public class Article {
     private int imageSrcId;
     private String content;
 
+    //initial
     public Article(String title, String description, String content, int imageSrcId) {
         this.title = title;
         this.description = description;

@@ -18,6 +18,7 @@ public class RegisterActivity extends AppCompatActivity {
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_register);
 
+        // Initialize register form fields and button
         EditText createUsername = findViewById(R.id.registerUsername);
         EditText createPassword = findViewById(R.id.registerPassword);
         EditText confirmPassword = findViewById(R.id.registerConfirmPassword);
