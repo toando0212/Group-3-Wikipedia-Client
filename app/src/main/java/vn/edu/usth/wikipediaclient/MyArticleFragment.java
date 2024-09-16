@@ -74,10 +74,10 @@ public class MyArticleFragment extends Fragment {
 
         Button addArticleButton = view.findViewById(R.id.buttonAddArticle);
 
-//        addArticleButton.setOnClickListener(v -> {
-//            Intent intent = new Intent(getActivity(), AddArticleActivity.class);
-//            getActivity().startActivity(intent);
-//        });
+        addArticleButton.setOnClickListener(v -> {
+            Intent intent = new Intent(getActivity(), AddArticleActivity.class);
+            getActivity().startActivity(intent);
+        });
 
         recyclerView = view.findViewById(R.id.recyclerViewExplore);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
