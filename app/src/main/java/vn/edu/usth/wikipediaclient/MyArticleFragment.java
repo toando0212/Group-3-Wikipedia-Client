@@ -1,5 +1,6 @@
 package vn.edu.usth.wikipediaclient;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -9,16 +10,17 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 
 import java.util.ArrayList;
 import java.util.List;
 
 /**
  * A simple {@link Fragment} subclass.
- * Use the {@link NearbyFragment#newInstance} factory method to
+ * Use the {@link MyArticleFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class NearbyFragment extends Fragment {
+public class MyArticleFragment extends Fragment {
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -29,10 +31,11 @@ public class NearbyFragment extends Fragment {
     private String mParam1;
     private String mParam2;
     private RecyclerView recyclerView;
-    private Adapter adapter;
+//    private ExploreAdapter exploreAdapter;
+    private MyArticleAdapter myArticleAdapter;
     private List<Article> articleList;
 
-    public NearbyFragment() {
+    public MyArticleFragment() {
         // Required empty public constructor
     }
 
@@ -45,8 +48,8 @@ public class NearbyFragment extends Fragment {
      * @return A new instance of fragment NearbyFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static NearbyFragment newInstance(String param1, String param2) {
-        NearbyFragment fragment = new NearbyFragment();
+    public static MyArticleFragment newInstance(String param1, String param2) {
+        MyArticleFragment fragment = new MyArticleFragment();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -67,7 +70,14 @@ public class NearbyFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_nearby, container, false);
+        View view = inflater.inflate(R.layout.fragment_my_article, container, false);
+
+        Button addArticleButton = view.findViewById(R.id.buttonAddArticle);
+
+//        addArticleButton.setOnClickListener(v -> {
+//            Intent intent = new Intent(getActivity(), AddArticleActivity.class);
+//            getActivity().startActivity(intent);
+//        });
 
         recyclerView = view.findViewById(R.id.recyclerViewExplore);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
@@ -86,8 +96,8 @@ public class NearbyFragment extends Fragment {
         articleList.add(new Article("September 11 attacks", "Part of terrorism in the United States", "The September 11 attacks, commonly known as 9/11,[f] were four coordinated Islamist terrorist suicide attacks carried out by al-Qaeda against the United States in 2001. On that morning, 19 terrorists hijacked four commercial airliners scheduled to travel from the East Coast to California. The hijackers crashed the first two planes into the Twin Towers of the World Trade Center in New York City and aimed the next two flights toward targets in or near Washington, D.C., in an attack on the nation's capital. The third team succeeded in striking the Pentagon, the headquarters of the U.S. Department of Defense in Arlington County, Virginia, while the fourth plane crashed in rural Pennsylvania during a passenger revolt. The September 11 attacks killed 2,977 people, making it the deadliest terrorist attack in history. In response to the attacks, the United States waged the multi-decade global war on terror to eliminate hostile groups deemed terrorist organizations, as well as the foreign governments purported to support them, in Afghanistan, Iraq, Syria, and several other countries.", R.drawable.attack));
 
 
-        adapter = new Adapter(articleList);
-        recyclerView.setAdapter(adapter);
+        myArticleAdapter = new MyArticleAdapter(articleList);
+        recyclerView.setAdapter(myArticleAdapter);
 
         return view;
     }

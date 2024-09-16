@@ -31,7 +31,7 @@ public class HistoryFragment extends Fragment {
     private String mParam2;
 
     private RecyclerView recyclerView;
-    private Adapter adapter;
+    private HistoryAdapter historyAdapter;
     private List<Article> articleList;
 
     private TextView titleHistory;
@@ -90,8 +90,8 @@ public class HistoryFragment extends Fragment {
         articleList.add(new Article("September 11 attacks", "Part of terrorism in the United States", "The September 11 attacks, commonly known as 9/11,[f] were four coordinated Islamist terrorist suicide attacks carried out by al-Qaeda against the United States in 2001. On that morning, 19 terrorists hijacked four commercial airliners scheduled to travel from the East Coast to California. The hijackers crashed the first two planes into the Twin Towers of the World Trade Center in New York City and aimed the next two flights toward targets in or near Washington, D.C., in an attack on the nation's capital. The third team succeeded in striking the Pentagon, the headquarters of the U.S. Department of Defense in Arlington County, Virginia, while the fourth plane crashed in rural Pennsylvania during a passenger revolt. The September 11 attacks killed 2,977 people, making it the deadliest terrorist attack in history. In response to the attacks, the United States waged the multi-decade global war on terror to eliminate hostile groups deemed terrorist organizations, as well as the foreign governments purported to support them, in Afghanistan, Iraq, Syria, and several other countries.", R.drawable.attack));
 
 
-        adapter = new Adapter(articleList);
-        recyclerView.setAdapter(adapter);
+        historyAdapter = new HistoryAdapter(articleList);
+        recyclerView.setAdapter(historyAdapter);
 
         return view;
 

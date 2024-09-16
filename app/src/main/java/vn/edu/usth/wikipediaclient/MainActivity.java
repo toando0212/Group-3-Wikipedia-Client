@@ -14,7 +14,8 @@ public class MainActivity extends AppCompatActivity {
     private void setupTabIcons() {
         tabLayout.getTabAt(0).setIcon(R.drawable.ic_explore);
         tabLayout.getTabAt(1).setIcon(R.drawable.ic_history);
-        tabLayout.getTabAt(2).setIcon(R.drawable.ic_nearby);
+        tabLayout.getTabAt(2).setIcon(R.drawable.ic_my_article);
+        tabLayout.getTabAt(3).setIcon(R.drawable.ic_account);
     }
 
     @Override

@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".NearbyFragment">
+    tools:context=".MyArticleFragment">
 
     <!-- TODO: Update blank fragment layout -->
 
@@ -19,13 +19,24 @@
         android:layout_gravity="center_horizontal"
         android:layout_marginBottom="16dp"/>
 
+    <Button
+        android:id="@+id/buttonAddArticle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Add Article"/>
+
+
     <TextView
-        android:id="@+id/titleNearby"
+        android:id="@+id/titleMyArticle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textStyle="bold"
         android:textSize="18sp"
-        android:text="Nearby" />
+        android:text="My Article" />
+<!--    <TextView-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:text="Please log in to upload your articles"/>-->
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerViewExplore"

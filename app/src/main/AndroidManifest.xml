@@ -13,10 +13,18 @@
         android:theme="@style/Theme.WikipediaClient"
         tools:targetApi="31">
         <activity
-            android:name=".SearchActivity"
+            android:name=".AddArticleActivity"
             android:exported="false" />
         <activity
-            android:name=".ArticleDetailActivity"
+            android:name=".RegisterActivity"
+            android:exported="false" />
+        <activity
+            android:name=".LoginActivity"
+            android:exported="false" /> <!-- <activity -->
+        <!-- android:name=".SearchActivity" -->
+        <!-- android:exported="false" /> -->
+        <activity
+            android:name=".FullArticlelActivity"
             android:exported="false" />
         <activity
             android:name=".MainActivity"

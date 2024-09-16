@@ -12,14 +12,13 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import java.util.List;
 
-public class Adapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+public class ExploreAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     private List<Article> articleList;
     private Context context;
 
-    public Adapter(List<Article> articleList) {
+    public ExploreAdapter(List<Article> articleList) {
         this.articleList = articleList;
-        this.context = context;
     }
 
     public int getItemViewType(int position) {
@@ -73,12 +72,12 @@ public class Adapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         }
 
         // Đổi màu nút thành màu xám
-        Button detailButton = holder.itemView.findViewById(R.id.articleButton);
-        detailButton.setBackgroundColor(context.getResources().getColor(android.R.color.darker_gray));
+        Button fullArticleButton = holder.itemView.findViewById(R.id.buttonFullArticle);
+        fullArticleButton.setBackgroundColor(context.getResources().getColor(android.R.color.darker_gray));
 
-        detailButton.setOnClickListener(v -> {
+        fullArticleButton.setOnClickListener(v -> {
             // khi bấm nút "Full Articles, mở ArticleDetailActivity
-            Intent intent = new Intent(context, ArticleDetailActivity.class);
+            Intent intent = new Intent(context, FullArticlelActivity.class);
             intent.putExtra("title", article.getTitle());
             intent.putExtra("content", article.getContent()); // Truyền nội dung chi tiết
             intent.putExtra("image", article.getImageResourceId());
@@ -91,21 +90,21 @@ public class Adapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         return articleList.size();
     }
 
-    public static class ViewHolder extends RecyclerView.ViewHolder {
-
-        ImageView imageImageView;
-        TextView titleTextView;
-        TextView descriptionTextView;
-        Button detailButton;
-
-        public ViewHolder(@NonNull View itemView) {
-            super(itemView);
-            imageImageView = itemView.findViewById(R.id.articleImage);
-            titleTextView = itemView.findViewById(R.id.articleTitle);
-            descriptionTextView = itemView.findViewById(R.id.articleDescription);
-            detailButton = itemView.findViewById(R.id.articleButton);
-        }
-    }
+//    public static class ViewHolder extends RecyclerView.ViewHolder {
+//
+//        ImageView imageImageView;
+//        TextView titleTextView;
+//        TextView descriptionTextView;
+//        Button detailButton;
+//
+////        public ViewHolder(@NonNull View itemView) {
+////            super(itemView);
+////            imageImageView = itemView.findViewById(R.id.articleImage);
+////            titleTextView = itemView.findViewById(R.id.articleTitle);
+////            descriptionTextView = itemView.findViewById(R.id.articleDescription);
+////            detailButton = itemView.findViewById(R.id.articleButton);
+////        }
+//    }
 
     public class FeaturedViewHolder extends RecyclerView.ViewHolder {
         TextView title, description, date, category;

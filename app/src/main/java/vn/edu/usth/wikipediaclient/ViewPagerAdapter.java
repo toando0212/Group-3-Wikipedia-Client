@@ -20,16 +20,17 @@ public class ViewPagerAdapter extends FragmentPagerAdapter {
         } else if (position == 1) {
             return new HistoryFragment();
         } else if (position == 2) {
-            return  new NearbyFragment();
-        }
-        else {
+            return  new MyArticleFragment();
+        } else if (position == 3) {
+            return new AccountFragment();
+        } else {
             return new ExploreFragment();
         }
     }
 
     @Override
     public int getCount() {
-        return 3;
+        return 4;
     }
 
     //return page title
@@ -40,7 +41,9 @@ public class ViewPagerAdapter extends FragmentPagerAdapter {
         } else if (position == 1) {
             return "History";
         } else if (position == 2) {
-            return "Nearby";
+            return "My Article";
+        } else if (position == 3) {
+            return "Account";
         } else {
             return "Explore";
         }

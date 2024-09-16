@@ -24,7 +24,7 @@ public class ExploreFragment extends Fragment {
 
     // TODO: Rename parameter arguments, choose names that match
     private RecyclerView recyclerView;
-    private Adapter adapter;
+    private ExploreAdapter exploreAdapter;
     private List<Article> articleList;
     private TextView titleExplore;
 
@@ -124,8 +124,8 @@ public class ExploreFragment extends Fragment {
        articleList.add((new Article("NHS England", "NHS England, formerly the NHS Commissioning Board, is an executive non-departmental public body of the Department of Health and Social Care", "t oversees the budget, planning, delivery and day-to-day operation of the commissioning side of the National Health Service in England as set out in the Health and Social Care Act 2012.[3] It directly commissions NHS general practitioners, dentists, optometrists and some specialist services. The Secretary of State publishes annually a document known as the NHS mandate which specifies the objectives which the Board should seek to achieve. National Health Service (Mandate Requirements) Regulations are published each year to give legal force to the mandate.\n" +
                "\n" +
                "In 2018 it was announced that the organisation, while maintaining its statutory independence, would be merged with NHS Improvement, and seven \"single integrated regional teams\" would be jointly established.", R.drawable.nhs )));
-       adapter = new Adapter(articleList);
-       recyclerView.setAdapter(adapter);
+       exploreAdapter = new ExploreAdapter(articleList);
+       recyclerView.setAdapter(exploreAdapter);
 
 
         
