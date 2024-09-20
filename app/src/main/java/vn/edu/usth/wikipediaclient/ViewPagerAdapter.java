@@ -1,18 +1,23 @@
 package vn.edu.usth.wikipediaclient;
 
-import androidx.fragment.app.Fragment;
 import androidx.annotation.NonNull;
+import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
 
+import com.google.android.material.tabs.TabLayout;
+
 public class ViewPagerAdapter extends FragmentPagerAdapter {
-    public ViewPagerAdapter(FragmentManager fragmentManager) {
-        super(fragmentManager);
+    private TabLayout tabLayout;
+    public ViewPagerAdapter(FragmentManager manager, TabLayout tabLayout) {
+        super(manager);
+        this.tabLayout = tabLayout;
     }
 
-    @NonNull
+
 
     //return item
+    @NonNull
     @Override
     public Fragment getItem(int position) {
         if (position == 0) {
@@ -27,6 +32,8 @@ public class ViewPagerAdapter extends FragmentPagerAdapter {
             return new ExploreFragment();
         }
     }
+
+
 
     @Override
     public int getCount() {
@@ -47,5 +54,13 @@ public class ViewPagerAdapter extends FragmentPagerAdapter {
         } else {
             return "Explore";
         }
+    }
+
+    //setup icon for tabs
+    public void setupTabIcons() {
+        tabLayout.getTabAt(0).setIcon(R.drawable.ic_explore);
+        tabLayout.getTabAt(1).setIcon(R.drawable.ic_history);
+        tabLayout.getTabAt(2).setIcon(R.drawable.ic_my_article);
+        tabLayout.getTabAt(3).setIcon(R.drawable.ic_account);
     }
 }

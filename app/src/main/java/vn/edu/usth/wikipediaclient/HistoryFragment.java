@@ -72,10 +72,8 @@ public class HistoryFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_history, container, false);
 
-//        titleHistory = view.findViewById(R.id.titleHistory);
-
         //set a linear layout manager to Recycler View
-        recyclerView = view.findViewById(R.id.recyclerViewExplore);
+        recyclerView = view.findViewById(R.id.recyclerViewHistory);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
         articleList = new ArrayList<>();

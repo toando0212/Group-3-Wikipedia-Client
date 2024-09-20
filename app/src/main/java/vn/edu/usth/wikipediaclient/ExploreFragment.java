@@ -26,7 +26,6 @@ public class ExploreFragment extends Fragment {
     private RecyclerView recyclerView;
     private ExploreAdapter exploreAdapter;
     private List<Article> articleList;
-    private TextView titleExplore;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -73,7 +72,6 @@ public class ExploreFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_explore, container, false);
 
-//        titleExplore = view.findViewById(R.id.titleExplore);
 
         //set a lineả layout manager to Recycler View
         recyclerView = view.findViewById(R.id.recyclerViewExplore);
@@ -135,14 +133,4 @@ public class ExploreFragment extends Fragment {
         
         return view;
     }
-
-//    public List<Article> getSampleArticles() {
-//        // mock data
-//        List<Article> articles = new ArrayList<>();
-//        articles.add(new Article("John Rolph", (R.drawable.john_rolph) , "Explore the wonders of our solar system, its planets, and its many secrets."));
-//        articles.add(new Article("Typhoon Yagi", (R.drawable.typhoon_yagi),   "Explore the wonders of our solar system, its planets, and it"));
-//        return articles;
-//    }
-
-
 }

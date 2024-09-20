@@ -3,8 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    tools:context=".HistoryFragment">
+    android:orientation="vertical">
 
     <!-- TODO: Update blank fragment layout -->
 
@@ -28,7 +27,7 @@
         android:text="History" />
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerViewExplore"
+        android:id="@+id/recyclerViewHistory"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:paddingBottom="100dp"/>

@@ -82,11 +82,6 @@ public class AccountFragment extends Fragment {
             getActivity().startActivity(intent);
         });
 
-//        loginButton.setOnClickListener(v -> {
-//            Intent intent = new Intent(cotext, )
-//        });
-
-
         return view;
     }
 }

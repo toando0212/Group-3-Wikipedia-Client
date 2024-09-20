@@ -80,7 +80,7 @@ public class MyArticleFragment extends Fragment {
             getActivity().startActivity(intent);
         });
 
-        recyclerView = view.findViewById(R.id.recyclerViewExplore);
+        recyclerView = view.findViewById(R.id.recyclerViewMyArticle);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
         //mock dât

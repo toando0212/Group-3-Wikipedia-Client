@@ -10,14 +10,12 @@
         android:id="@+id/featuredImage"
         android:layout_width="match_parent"
         android:layout_height="185dp"
-        android:scaleType="centerCrop"
-        android:src="@drawable/mu" />
+        android:scaleType="centerCrop" />
 
     <TextView
         android:id="@+id/featuredTitle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Manchester United"
         android:textStyle="bold"
         android:textSize="18sp"
         android:paddingTop="8dp" />

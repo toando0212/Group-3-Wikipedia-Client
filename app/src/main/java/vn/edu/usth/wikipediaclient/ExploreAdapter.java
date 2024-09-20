@@ -34,8 +34,6 @@ public class ExploreAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         context = parent.getContext();
-////        View view = LayoutInflater.from(context).inflate(R.layout.item_article, parent, false);
-////        return new ViewHolder(view);
 
         // assign layout for featured
         if (viewType == 0) {
@@ -51,13 +49,9 @@ public class ExploreAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
         Article article = articleList.get(position);
 
-//        holder.titleTextView.setText(article.getTitle());
-//        holder.descriptionTextView.setText(article.getDescription());
-//        holder.imageImageView.setImageResource(article.getImageResourceId());
-
         //assign data for featured
         if (holder.getItemViewType() == 0) {
-            FeaturedViewHolder featuredViewHolder = (FeaturedViewHolder) holder;
+            FeaturedViewHolder featuredViewHolder = (FeaturedViewHolder) holder; //force type of holder from Recycler.ViewHolder to FeaturedViewHolder
 
             featuredViewHolder.title.setText(article.getTitle());
             featuredViewHolder.description.setText(article.getDescription());
@@ -65,7 +59,7 @@ public class ExploreAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
         }
         // assign data for article
         else {
-            ArticleViewHolder articleViewHolder = (ArticleViewHolder) holder;
+            ArticleViewHolder articleViewHolder = (ArticleViewHolder) holder; //force type of holder from Recycler.ViewHolder to ArticleViewHolder
 
             articleViewHolder.title.setText(article.getTitle());
             articleViewHolder.description.setText(article.getDescription());
@@ -90,21 +84,6 @@ public class ExploreAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
         return articleList.size();
     }
 
-//    public static class ViewHolder extends RecyclerView.ViewHolder {
-//
-//        ImageView imageImageView;
-//        TextView titleTextView;
-//        TextView descriptionTextView;
-//        Button detailButton;
-//
-////        public ViewHolder(@NonNull View itemView) {
-////            super(itemView);
-////            imageImageView = itemView.findViewById(R.id.articleImage);
-////            titleTextView = itemView.findViewById(R.id.articleTitle);
-////            descriptionTextView = itemView.findViewById(R.id.articleDescription);
-////            detailButton = itemView.findViewById(R.id.articleButton);
-////        }
-//    }
 
     //create view holder for featured
     public class FeaturedViewHolder extends RecyclerView.ViewHolder {

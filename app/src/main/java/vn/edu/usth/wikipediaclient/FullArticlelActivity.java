@@ -19,7 +19,7 @@ public class FullArticlelActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
-        setContentView(R.layout.activity_article_detail);
+        setContentView(R.layout.activity_full_article);
 
 
         //init view
@@ -29,7 +29,7 @@ public class FullArticlelActivity extends AppCompatActivity {
 
         //import data from Intent
         Intent intent = getIntent();
-        if (intent != null) {
+
             String title = intent.getStringExtra("title");
             String content = intent.getStringExtra("content");
             int imageResourceId = intent.getIntExtra("image", -1);
@@ -40,8 +40,6 @@ public class FullArticlelActivity extends AppCompatActivity {
             if (imageResourceId != -1) {
                 articleImageView.setImageResource(imageResourceId);
             }
-        }
-
 
     }
 }

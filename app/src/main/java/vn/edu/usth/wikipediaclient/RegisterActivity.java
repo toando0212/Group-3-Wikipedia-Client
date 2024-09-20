@@ -19,10 +19,10 @@ public class RegisterActivity extends AppCompatActivity {
         setContentView(R.layout.activity_register);
 
         // Initialize register form fields and button
-        EditText createUsername = findViewById(R.id.registerUsername);
-        EditText createPassword = findViewById(R.id.registerPassword);
-        EditText confirmPassword = findViewById(R.id.registerConfirmPassword);
-        Button createAccountButton = findViewById(R.id.registerButton);
+//        EditText createUsername = findViewById(R.id.registerUsername);
+//        EditText createPassword = findViewById(R.id.registerPassword);
+//        EditText confirmPassword = findViewById(R.id.registerConfirmPassword);
+//        Button createAccountButton = findViewById(R.id.registerButton);
 
     }
 }
