@@ -8,8 +8,8 @@ android {
 
     defaultConfig {
         applicationId = "vn.edu.usth.wikipediaclient"
-        minSdk = 24
-        targetSdk = 34
+        minSdk = 21
+        targetSdk = 35
         versionCode = 1
         versionName = "1.0"
 
@@ -26,13 +26,16 @@ android {
         }
     }
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_1_8
-        targetCompatibility = JavaVersion.VERSION_1_8
+        sourceCompatibility = JavaVersion.VERSION_21
+        targetCompatibility = JavaVersion.VERSION_21
     }
+
 }
 
 dependencies {
-
+    implementation("com.squareup.retrofit2:retrofit:2.9.0")
+    implementation("com.squareup.retrofit2:converter-gson:2.9.0")
+    implementation("com.squareup.okhttp3:logging-interceptor:4.9.0")
     implementation(libs.appcompat)
     implementation(libs.material)
     implementation(libs.activity)
