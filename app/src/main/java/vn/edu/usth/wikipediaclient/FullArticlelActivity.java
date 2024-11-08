@@ -32,7 +32,7 @@ public class FullArticlelActivity extends AppCompatActivity {
 
             String title = intent.getStringExtra("title");
             String content = intent.getStringExtra("content");
-            int imageResourceId = intent.getIntExtra("image", -1);
+            int imageResourceId = intent.getIntExtra("image", 0);
 
             //assgign data to view
             articleTitle.setText(title);
