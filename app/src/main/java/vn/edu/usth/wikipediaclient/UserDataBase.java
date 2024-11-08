@@ -22,6 +22,7 @@ public class UserDataBase {
         return conn;
     }
 
+
     // Tạo bảng users
     public static void createUserTable() {
         String sql = "CREATE TABLE IF NOT EXISTS users ("
