@@ -1,121 +1,58 @@
 package vn.edu.usth.wikipediaclient;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.Scanner;
+import android.content.ContentValues;
+import android.content.Context;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
+import android.database.sqlite.SQLiteOpenHelper;
 
-public class UserDataBase {
-    private static final String URL = "jdbc:sqlite:users.db";
+public class UserDataBase extends SQLiteOpenHelper {
+    private static final String DATABASE_NAME = "users.db";
+    private static final int DATABASE_VERSION = 1;
 
-    // Kết nối SQLite
-    public static Connection connect() {
-        Connection conn = null;
-        try {
-            conn = DriverManager.getConnection(URL);
-            System.out.println("Kết nối SQLite thành công!");
-        } catch (SQLException e) {
-            System.out.println("Kết nối thất bại: " + e.getMessage());
-        }
-        return conn;
+    private static final String TABLE_USERS = "users";
+    private static final String COLUMN_USERNAME = "username";
+    private static final String COLUMN_PASSWORD = "password";
+
+    public UserDataBase(Context context) {
+        super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
 
+    @Override
+    public void onCreate(SQLiteDatabase db) {
+        String createTable = "CREATE TABLE " + TABLE_USERS + " (" +
+                COLUMN_USERNAME + " TEXT PRIMARY KEY, " +
+                COLUMN_PASSWORD + " TEXT NOT NULL)";
+        db.execSQL(createTable);
+    }
 
-    // Tạo bảng users
-    public static void createUserTable() {
-        String sql = "CREATE TABLE IF NOT EXISTS users ("
-                + " username TEXT UNIQUE NOT NULL,"
-                + " password TEXT NOT NULL"
-                + ");";
-
-        try (Connection conn = connect();
-             PreparedStatement pstmt = conn.prepareStatement(sql)) {
-            pstmt.execute();
-            System.out.println("Tạo bảng users thành công!");
-        } catch (SQLException e) {
-            System.out.println("Tạo bảng thất bại: " + e.getMessage());
-        }
+    @Override
+    public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_USERS);
+        onCreate(db);
     }
 
     // Đăng ký người dùng
-    public static boolean registerUser(String username, String password) {
-        String sql = "INSERT INTO users(username, password) VALUES(?, ?)";
+    public boolean registerUser(String username, String password) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put(COLUMN_USERNAME, username);
+        values.put(COLUMN_PASSWORD, password);
 
-        try (Connection conn = connect();
-             PreparedStatement pstmt = conn.prepareStatement(sql)) {
-            pstmt.setString(1, username);
-            pstmt.setString(2, password);
-            pstmt.executeUpdate();
-            System.out.println("Đăng ký thành công!");
-            return true;
-        } catch (SQLException e) {
-            System.out.println("Đăng ký thất bại: " + e.getMessage());
-            return false;
-        }
+        long result = db.insert(TABLE_USERS, null, values);
+        db.close();
+        return result != -1; // Trả về true nếu đăng ký thành công
     }
 
     // Đăng nhập người dùng
-    public static boolean loginUser(String username, String password) {
-        String sql = "SELECT * FROM users WHERE username = ? AND password = ?";
-
-        try (Connection conn = connect();
-             PreparedStatement pstmt = conn.prepareStatement(sql)) {
-            pstmt.setString(1, username);
-            pstmt.setString(2, password);
-
-            ResultSet rs = pstmt.executeQuery();
-            if (rs.next()) {
-                System.out.println("Đăng nhập thành công!");
-                return true;
-            } else {
-                System.out.println("Sai tên đăng nhập hoặc mật khẩu!");
-                return false;
-            }
-        } catch (SQLException e) {
-            System.out.println("Đăng nhập thất bại: " + e.getMessage());
-            return false;
-        }
-    }
-
-    // Main: Giao diện Console
-    public static void main(String[] args) {
-        Scanner scanner = new Scanner(System.in);
-        createUserTable();
-
-        while (true) {
-            System.out.println("Chọn chức năng:");
-            System.out.println("1. Đăng ký");
-            System.out.println("2. Đăng nhập");
-            System.out.println("3. Thoát");
-            int choice = scanner.nextInt();
-            scanner.nextLine(); // Xử lý Enter sau khi nhập số
-
-            switch (choice) {
-                case 1:
-                    System.out.print("Nhập tên đăng nhập: ");
-                    String regUsername = scanner.nextLine();
-                    System.out.print("Nhập mật khẩu: ");
-                    String regPassword = scanner.nextLine();
-                    registerUser(regUsername, regPassword);
-                    break;
-                case 2:
-                    System.out.print("Nhập tên đăng nhập: ");
-                    String logUsername = scanner.nextLine();
-                    System.out.print("Nhập mật khẩu: ");
-                    String logPassword = scanner.nextLine();
-                    loginUser(logUsername, logPassword);
-                    break;
-                case 3:
-                    System.out.println("Thoát chương trình.");
-                    return;
-                default:
-                    System.out.println("Lựa chọn không hợp lệ!");
-                    break;
-            }
-        }
+    public boolean loginUser(String username, String password) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        String query = "SELECT * FROM " + TABLE_USERS +
+                " WHERE " + COLUMN_USERNAME + " = ? AND " + COLUMN_PASSWORD + " = ?";
+        Cursor cursor = db.rawQuery(query, new String[]{username, password});
+        boolean loginSuccessful = cursor.moveToFirst();
+        cursor.close();
+        db.close();
+        return loginSuccessful;
     }
 }
-
-

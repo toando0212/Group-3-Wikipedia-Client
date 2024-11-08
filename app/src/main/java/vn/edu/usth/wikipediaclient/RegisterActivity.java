@@ -1,66 +1,48 @@
 package vn.edu.usth.wikipediaclient;
 
-import android.app.Activity;
-import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
-
-
-
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
 public class RegisterActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        EdgeToEdge.enable(this);
         setContentView(R.layout.activity_register);
 
-        Button createAccountButton = findViewById(R.id.registerButton);
-        createAccountButton.setOnClickListener(v -> {
-            String username = ((EditText) findViewById(R.id.registerUsername)).getText().toString();
-            String password = ((EditText) findViewById(R.id.registerPassword)).getText().toString();
+        // Initialize views
+        EditText usernameEditText = findViewById(R.id.registerUsername);
+        EditText passwordEditText = findViewById(R.id.registerPassword);
+        EditText confirmPasswordEditText = findViewById(R.id.registerConfirmPassword);
+        Button registerButton = findViewById(R.id.registerButton);
 
-            User user = new User(username, password);
-            ApiService apiService = ApiClient.getApiService();
-            Call<Void> call = apiService.register(user);
-            call.enqueue(new Callback<Void>() {
-                @Override
-                public void onResponse(Call<Void> call, Response<Void> response) {
-                    if (response.isSuccessful()) {
-                        Toast.makeText(RegisterActivity.this, "Đăng ký thành công", Toast.LENGTH_SHORT).show();
-                        finish();
-                    } else {
-                        Toast.makeText(RegisterActivity.this, "Lỗi khi đăng ký", Toast.LENGTH_SHORT).show();
-                    }
-                }
+        UserDataBase dbHelper = new UserDataBase(this);
 
-                @Override
-                public void onFailure(Call<Void> call, Throwable t) {
-                    Toast.makeText(RegisterActivity.this, "Lỗi kết nối", Toast.LENGTH_SHORT).show();
-                }
-            });
-            SharedPreferences sharedPreferences = getSharedPreferences("UserPrefs", MODE_PRIVATE);
-            SharedPreferences.Editor editor = sharedPreferences.edit();
-            editor.putString("username", username);
-            editor.apply();
+        registerButton.setOnClickListener(v -> {
+            String username = usernameEditText.getText().toString().trim();
+            String password = passwordEditText.getText().toString().trim();
+            String confirmPassword = confirmPasswordEditText.getText().toString().trim();
 
-            Intent intent = new Intent();
-            setResult(Activity.RESULT_OK, intent);
-            finish();
+            if (username.isEmpty() || password.isEmpty()) {
+                Toast.makeText(this, "Tên đăng nhập và mật khẩu không được để trống", Toast.LENGTH_SHORT).show();
+                return;
+            }
+
+            if (!password.equals(confirmPassword)) {
+                Toast.makeText(this, "Mật khẩu và xác nhận mật khẩu không khớp", Toast.LENGTH_SHORT).show();
+                return;
+            }
+
+            if (dbHelper.registerUser(username, password)) {
+                Toast.makeText(this, "Đăng ký thành công!", Toast.LENGTH_SHORT).show();
+                finish(); // Quay lại màn hình trước
+            } else {
+                Toast.makeText(this, "Tên đăng nhập đã tồn tại!", Toast.LENGTH_SHORT).show();
+            }
         });
-
     }
 }
