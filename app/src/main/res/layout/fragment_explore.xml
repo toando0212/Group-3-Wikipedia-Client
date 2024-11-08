@@ -26,9 +26,7 @@
         android:textSize="18sp"
         android:text="Explore" />
 
-    <SearchView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+
 
 
     <androidx.recyclerview.widget.RecyclerView

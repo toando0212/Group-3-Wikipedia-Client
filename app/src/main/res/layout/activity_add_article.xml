@@ -35,6 +35,15 @@
         android:background="@android:color/white"/>
 
     <EditText
+        android:id="@+id/articleDesptionEditText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Article Title"
+        android:layout_marginTop="16dp"
+        android:padding="8dp"
+        android:background="@android:color/white"/>
+
+    <EditText
         android:id="@+id/articleContentEditText"
         android:layout_width="match_parent"
         android:layout_height="200dp"
