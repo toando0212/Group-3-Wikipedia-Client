@@ -49,7 +49,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         onCreate(db);
     }
     // Insert a new article
-    public long addArticle(Article article) {
+    public void addArticle(Article article) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
         values.put(COLUMN_TITLE, article.getTitle());
@@ -59,7 +59,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         long id = db.insert(TABLE_ARTICLES, null, values);
         db.close();
-        return id;
     }
 
     // Retrieve all articles
