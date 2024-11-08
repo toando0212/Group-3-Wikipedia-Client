@@ -6,6 +6,8 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
+import java.io.File;
+
 public class DatabaseHelper extends SQLiteOpenHelper {
     // Database Information
     private static final String DATABASE_NAME = "articles.db";
@@ -16,12 +18,21 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 //    public static final String COLUMN_ID = "id"; // Primary Key
     public static final String COLUMN_TITLE = "title";
     public static final String COLUMN_DESCRIPTION = "description"; // Optional
-    public static final String COLUMN_IMAGE_SRC_ID = "imageSrcId"; // Image Path/URI
+//    public static final String COLUMN_IMAGE_SRC_ID = "imageSrcId"; // Image Path/URI
     public static final String COLUMN_CONTENT = "content";
 
     // Constructor
     public DatabaseHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
+    }
+
+    private static String getDatabasePath(Context context) {
+        // Đường dẫn tới thư mục tùy chỉnh trong ứng dụng
+        File dbDirectory = new File(context.getFilesDir(), "Project MobileApp/article-api");
+        if (!dbDirectory.exists()) {
+            dbDirectory.mkdirs(); // Tạo thư mục nếu chưa tồn tại
+        }
+        return new File(dbDirectory, DATABASE_NAME).getAbsolutePath();
     }
 
     @Override
@@ -31,7 +42,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
                 COLUMN_TITLE + " TEXT NOT NULL, " +
                 COLUMN_DESCRIPTION + " TEXT, " +
-                COLUMN_IMAGE_SRC_ID + " TEXT, " +
+                 " TEXT, " +
                 COLUMN_CONTENT + " TEXT NOT NULL)";
         db.execSQL(CREATE_ARTICLES_TABLE);
     }
@@ -44,12 +55,12 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     }
 
     // Insert an Article
-    public long insertArticle(String title, String description, String imageSrcId, String content) {
+    public long insertArticle(String title, String description, String content) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
         values.put(COLUMN_TITLE, title);
         values.put(COLUMN_DESCRIPTION, description);
-        values.put(COLUMN_IMAGE_SRC_ID, imageSrcId);
+//        values.put(COLUMN_IMAGE_SRC_ID, imageSrcId);
         values.put(COLUMN_CONTENT, content);
 
         // Insert the row and return the row ID
@@ -63,30 +74,5 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     }
 
 
-    // Update an Article
-//    public int updateArticle(int id, String title, String description, String imageSrcId, String content) {
-//        SQLiteDatabase db = this.getWritableDatabase();
-//        ContentValues values = new ContentValues();
-//        values.put(COLUMN_TITLE, title);
-//        values.put(COLUMN_DESCRIPTION, description);
-//        values.put(COLUMN_IMAGE_SRC_ID, imageSrcId);
-//        values.put(COLUMN_CONTENT, content);
-//
-//        // Update the row with the given ID
-//        return db.update(TABLE_ARTICLES, values, COLUMN_ID + "=?", new String[]{String.valueOf(id)});
-//    }
 
-    // Delete an Article
-//    public int deleteArticle(int id) {
-//        SQLiteDatabase db = this.getWritableDatabase();
-//        return db.delete(TABLE_ARTICLES, COLUMN_ID + "=?", new String[]{String.valueOf(id)});
-//    }
-
-    // Search Articles by Title
-//    public Cursor searchArticles(String keyword) {
-//        SQLiteDatabase db = this.getReadableDatabase();
-//        String query = "SELECT * FROM " + TABLE_ARTICLES +
-//                " WHERE " + COLUMN_TITLE + " LIKE ?";
-//        return db.rawQuery(query, new String[]{"%" + keyword + "%"});
-//    }
 }

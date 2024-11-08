@@ -1,24 +1,55 @@
 package vn.edu.usth.wikipediaclient;
 
 import android.os.Bundle;
-
-import androidx.activity.EdgeToEdge;
+import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
 
 public class AddArticleActivity extends AppCompatActivity {
+
+    private EditText addArticleTitle, addArticleDescription, addArticleContent;
+    private Button buttonSubmit;
+    private DatabaseHelper databaseHelper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        EdgeToEdge.enable(this);
         setContentView(R.layout.activity_add_article);
-//        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
-//            Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
-//            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
-//            return insets;
-//        });
+
+        // Khởi tạo các thành phần UI
+        addArticleTitle = findViewById(R.id.articleTitleEditText);
+        addArticleDescription = findViewById(R.id.articleDesptionEditText);
+        addArticleContent = findViewById(R.id.articleContentEditText);
+        buttonSubmit = findViewById(R.id.saveArticleButton);
+
+        // Khởi tạo DatabaseHelper
+        databaseHelper = new DatabaseHelper(this);
+
+        // Xử lý sự kiện nhấn nút Submit
+        buttonSubmit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String title = addArticleTitle.getText().toString().trim();
+                String description = addArticleDescription.getText().toString().trim();
+                String content = addArticleContent.getText().toString().trim();
+
+                if (title.isEmpty() || content.isEmpty()) {
+                    Toast.makeText(AddArticleActivity.this, "Title và Content không được để trống", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
+                if (databaseHelper.insertArticle(title, description, content) != -1) {
+                    Toast.makeText(AddArticleActivity.this, "Lưu bài viết thành công", Toast.LENGTH_SHORT).show();
+                    addArticleTitle.setText("");
+                    addArticleDescription.setText("");
+                    addArticleContent.setText("");
+                    finish();
+                } else {
+                    Toast.makeText(AddArticleActivity.this, "Có lỗi xảy ra khi lưu bài viết", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
     }
 }
