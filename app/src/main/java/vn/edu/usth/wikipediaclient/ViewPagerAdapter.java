@@ -25,7 +25,7 @@ public class ViewPagerAdapter extends FragmentPagerAdapter {
         } else if (position == 1) {
             return new HistoryFragment();
         } else if (position == 2) {
-            return  new MyArticleFragment();
+            return  new AddArticleFragment();
         } else if (position == 3) {
             return new AccountFragment();
         } else {
@@ -48,7 +48,7 @@ public class ViewPagerAdapter extends FragmentPagerAdapter {
         } else if (position == 1) {
             return "History";
         } else if (position == 2) {
-            return "My Article";
+            return "Add Article";
         } else if (position == 3) {
             return "Account";
         } else {
@@ -60,7 +60,7 @@ public class ViewPagerAdapter extends FragmentPagerAdapter {
     public void setupTabIcons() {
         tabLayout.getTabAt(0).setIcon(R.drawable.ic_explore);
         tabLayout.getTabAt(1).setIcon(R.drawable.ic_history);
-        tabLayout.getTabAt(2).setIcon(R.drawable.ic_my_article);
+        tabLayout.getTabAt(2).setIcon(R.drawable.ic_add_article);
         tabLayout.getTabAt(3).setIcon(R.drawable.ic_account);
     }
 }
