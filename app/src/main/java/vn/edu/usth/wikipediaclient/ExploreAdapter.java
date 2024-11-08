@@ -55,7 +55,7 @@ public class ExploreAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
 
             featuredViewHolder.title.setText(article.getTitle());
             featuredViewHolder.description.setText(article.getDescription());
-            featuredViewHolder.image.setImageResource(article.getImageResourceId());
+//            featuredViewHolder.image.setImageResource(article.getImageResourceId());
         }
         // assign data for article
         else {
@@ -63,7 +63,7 @@ public class ExploreAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
 
             articleViewHolder.title.setText(article.getTitle());
             articleViewHolder.description.setText(article.getDescription());
-            articleViewHolder.image.setImageResource(article.getImageResourceId());
+//            articleViewHolder.image.setImageResource(article.getImageResourceId());
         }
 
         Button fullArticleButton = holder.itemView.findViewById(R.id.buttonFullArticle);
@@ -74,7 +74,7 @@ public class ExploreAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
             Intent intent = new Intent(context, FullArticlelActivity.class);
             intent.putExtra("title", article.getTitle());
             intent.putExtra("content", article.getContent()); // Truyền nội dung chi tiết
-            intent.putExtra("image", article.getImageResourceId());
+//            intent.putExtra("image", article.getImageResourceId());
             context.startActivity(intent);
         });
     }
@@ -93,7 +93,7 @@ public class ExploreAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
             super(itemView);
             title = itemView.findViewById(R.id.featuredTitle);
             description = itemView.findViewById(R.id.featuredDescription);
-            image = itemView.findViewById(R.id.featuredImage);
+//            image = itemView.findViewById(R.id.featuredImage);
         }
     }
 
