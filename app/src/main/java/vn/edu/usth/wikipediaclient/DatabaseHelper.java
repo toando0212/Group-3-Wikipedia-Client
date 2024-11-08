@@ -80,7 +80,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getWritableDatabase();
         return db.delete(TABLE_ARTICLES, COLUMN_ID + "=?", new String[]{String.valueOf(id)});
     }
-
     // Search Articles by Title
     public Cursor searchArticles(String keyword) {
         SQLiteDatabase db = this.getReadableDatabase();
