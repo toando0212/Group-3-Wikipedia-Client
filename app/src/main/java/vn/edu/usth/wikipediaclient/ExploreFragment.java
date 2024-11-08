@@ -44,9 +44,10 @@ public class ExploreFragment extends Fragment {
                 while (cursor.moveToNext()) {
                     String title = cursor.getString(cursor.getColumnIndex(DatabaseHelper.COLUMN_TITLE));
                     String description = cursor.getString(cursor.getColumnIndex(DatabaseHelper.COLUMN_DESCRIPTION));
-
+                    String content = cursor.getString(cursor.getColumnIndex(DatabaseHelper.COLUMN_CONTENT));
+//                    articleList.add(new Article(title, description, content, 0));
                     // Create Article objects with null for image and content (if not needed)
-                    articleList.add(new Article(title, description, null, 0));
+                    articleList.add(new Article(title, description, content, 0));
                 }
             } finally {
                 cursor.close(); // Always close the cursor to avoid memory leaks
