@@ -20,7 +20,7 @@ public class RegisterActivity extends AppCompatActivity {
         EditText confirmPasswordEditText = findViewById(R.id.registerConfirmPassword);
         Button registerButton = findViewById(R.id.registerButton);
 
-        UserDataBase dbHelper = new UserDataBase(this);
+        UserDataBase userDataBase = new UserDataBase(this);
 
         registerButton.setOnClickListener(v -> {
             String username = usernameEditText.getText().toString().trim();
@@ -37,7 +37,7 @@ public class RegisterActivity extends AppCompatActivity {
                 return;
             }
 
-            if (dbHelper.registerUser(username, password)) {
+            if (userDataBase.registerUser(username, password)) {
                 Toast.makeText(this, "Đăng ký thành công!", Toast.LENGTH_SHORT).show();
                 finish(); // Quay lại màn hình trước
             } else {

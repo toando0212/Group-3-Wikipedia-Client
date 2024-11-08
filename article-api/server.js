@@ -3,16 +3,19 @@ const sqlite3 = require('sqlite3').verbose();
 const bodyParser = require('body-parser');
 
 const app = express();
-const db = new sqlite3.Database('./users.db');
+const db_user = new sqlite3.Database('./users.db');
+const db_article = new sqlite3.Database('./article.db');
+
+//db_article.run(`CREATE TABLE IF NOT EXISTS articles (
+//    id INTEGER PRIMARY KEY AUTOINCREMENT,
+//    title TEXT NOT NULL,
+//    description TEXT,
+//    content TEXT NOT NULL
+//)`);
 
 app.use(bodyParser.json());
 
-// Tạo bảng nếu chưa có
-//db.run(`CREATE TABLE IF NOT EXISTS users (
-//    id INTEGER PRIMARY KEY AUTOINCREMENT,
-//    username TEXT NOT NULL,
-//    password TEXT NOT NULL
-//)`);
+
 
 // API đăng ký
 app.post('/register', (req, res) => {
@@ -41,6 +44,18 @@ app.post('/login', (req, res) => {
         } else {
             res.status(401).json({ message: "Sai tên đăng nhập hoặc mật khẩu" });
         }
+    });
+});
+
+app.post('/add-article', (req, res) => {
+    const { title, description, content } = req.body;
+    const query = `INSERT INTO articles (title, description, content) VALUES (?, ?, ?)`;
+
+    db_article.run(query, [title, description, content], function (err) {
+        if (err) {
+            return res.status(500).json({ message: "Lỗi khi thêm bài báo" });
+        }
+        res.status(201).json({ message: "Thêm bài báo thành công", articleId: this.lastID });
     });
 });
 

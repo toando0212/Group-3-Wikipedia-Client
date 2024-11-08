@@ -1,5 +1,6 @@
 package vn.edu.usth.wikipediaclient;
 
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -33,6 +34,7 @@ public class AddArticleFragment extends Fragment {
 
         // Khởi tạo DatabaseHelper
         databaseHelper = new DatabaseHelper(getContext());
+//        SQLiteDatabase db = databaseHelper.getWritableDatabase();
 
         // Xử lý sự kiện nhấn nút Submit
         buttonSubmit.setOnClickListener(new View.OnClickListener() {
@@ -52,6 +54,7 @@ public class AddArticleFragment extends Fragment {
                     addArticleTitle.setText("");
                     addArticleDescription.setText("");
                     addArticleContent.setText("");
+
                 } else {
                     Toast.makeText(getContext(), "Có lỗi xảy ra khi lưu bài viết", Toast.LENGTH_SHORT).show();
                 }

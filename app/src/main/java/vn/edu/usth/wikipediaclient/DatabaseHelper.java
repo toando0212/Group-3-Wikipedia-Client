@@ -26,24 +26,22 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
 
-    private static String getDatabasePath(Context context) {
-        // Đường dẫn tới thư mục tùy chỉnh trong ứng dụng
-        File dbDirectory = new File(context.getFilesDir(), "Project MobileApp/article-api");
-        if (!dbDirectory.exists()) {
-            dbDirectory.mkdirs(); // Tạo thư mục nếu chưa tồn tại
-        }
-        return new File(dbDirectory, DATABASE_NAME).getAbsolutePath();
-    }
+//    private static String getDatabasePath(Context context) {
+//        // Đường dẫn tới thư mục tùy chỉnh trong ứng dụng
+//        File dbDirectory = new File(context.getFilesDir(), "Project MobileApp/article-api");
+//        if (!dbDirectory.exists()) {
+//            dbDirectory.mkdirs(); // Tạo thư mục nếu chưa tồn tại
+//        }
+//        return new File(dbDirectory, DATABASE_NAME).getAbsolutePath();
+//    }
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        // Create Articles Table
         String CREATE_ARTICLES_TABLE = "CREATE TABLE " + TABLE_ARTICLES + " ("
-                + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
-                COLUMN_TITLE + " TEXT NOT NULL, " +
-                COLUMN_DESCRIPTION + " TEXT, " +
-                 " TEXT, " +
-                COLUMN_CONTENT + " TEXT NOT NULL)";
+                + "id INTEGER PRIMARY KEY AUTOINCREMENT, "
+                + COLUMN_TITLE + " TEXT NOT NULL, "
+                + COLUMN_DESCRIPTION + " TEXT, "
+                + COLUMN_CONTENT + " TEXT NOT NULL)";
         db.execSQL(CREATE_ARTICLES_TABLE);
     }
 
