@@ -48,6 +48,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_ARTICLES);
         onCreate(db);
     }
+
     // Insert a new article
     public void addArticle(Article article) {
         SQLiteDatabase db = this.getWritableDatabase();
@@ -57,7 +58,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         values.put(COLUMN_IMAGE_SRC_ID, article.getImageResourceId());
         values.put(COLUMN_CONTENT, article.getContent());
 
-        long id = db.insert(TABLE_ARTICLES, null, values);
+        long result = db.insert(TABLE_ARTICLES, null, values);
         db.close();
     }
 
@@ -75,8 +76,10 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         values.put(COLUMN_IMAGE_SRC_ID, article.getImageResourceId());
         values.put(COLUMN_CONTENT, article.getContent());
 
-        return db.update(TABLE_ARTICLES, values, COLUMN_TITLE + " = ?",
+        int rowsAffected = db.update(TABLE_ARTICLES, values, COLUMN_TITLE + " = ?",
                 new String[]{article.getTitle()});
+        db.close();
+        return rowsAffected;
     }
 
     // Delete an article by title
@@ -86,3 +89,13 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.close();
     }
 }
+
+// Don't forget to close the cursor when you finish using it to avoid memory leaks.
+// Example usage:
+// Cursor cursor = dbHelper.getAllArticles();
+// if (cursor != null) {
+//     while (cursor.moveToNext()) {
+//         // Process each row
+//     }
+//     cursor.close();
+// }
