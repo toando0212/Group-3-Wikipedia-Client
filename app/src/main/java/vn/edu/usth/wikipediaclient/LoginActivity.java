@@ -34,10 +34,10 @@ public class LoginActivity extends AppCompatActivity {
             if (dbHelper.loginUser(username, password)) {
                 Toast.makeText(this, "Đăng nhập thành công!", Toast.LENGTH_SHORT).show();
 
-                // Chuyển sang màn hình khác hoặc xử lý logic sau khi đăng nhập
+                // chuyển sang màn hình khác và xử lý logic sau khi đăng nhập
                 Intent intent = new Intent(LoginActivity.this, MainActivity.class); // MainActivity là màn hình chính của bạn
                 startActivity(intent);
-                finish(); // Đóng LoginActivity
+                finish();
             } else {
                 Toast.makeText(this, "Sai tên đăng nhập hoặc mật khẩu!", Toast.LENGTH_SHORT).show();
             }

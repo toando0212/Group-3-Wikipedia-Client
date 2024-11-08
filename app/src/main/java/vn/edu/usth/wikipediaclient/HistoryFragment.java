@@ -1,5 +1,6 @@
 package vn.edu.usth.wikipediaclient;
 
+import android.database.Cursor;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -58,32 +59,37 @@ public class HistoryFragment extends Fragment {
     }
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
-    }
-
-    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_history, container, false);
 
-        //set a linear layout manager to Recycler View
         recyclerView = view.findViewById(R.id.recyclerViewHistory);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
         articleList = new ArrayList<>();
 
-        //set the adapter to RecyclerView
+
+        HistoryDatabaseHelper dbHelper = new HistoryDatabaseHelper(getContext());
+        Cursor cursor = dbHelper.getAllArticles();
+        if (cursor != null) {
+            try {
+                while (cursor.moveToNext()) {
+                    String title = cursor.getString(cursor.getColumnIndex("title"));
+                    String content = cursor.getString(cursor.getColumnIndex("content"));
+
+
+                    articleList.add(new Article(title, "", content, 0)); // Tạo đối tượng Article, bạn có thể điều chỉnh các giá trị khác nếu cần
+                }
+            } finally {
+                cursor.close();
+            }
+        }
+
+
         historyAdapter = new HistoryAdapter(articleList);
         recyclerView.setAdapter(historyAdapter);
 
         return view;
-
     }
 
 

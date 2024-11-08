@@ -17,17 +17,17 @@ public class FullArticlelActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_full_article);
 
-        // Khởi tạo các thành phần UI
+        // khởi tạo UI
         articleTitle = findViewById(R.id.articleTitle);
         articleContent = findViewById(R.id.articleContent);
 
-        // Nhận dữ liệu từ Intent
+        //  dữ liệu từ Intent
         Intent intent = getIntent();
         if (intent != null) {
             String title = intent.getStringExtra("title");
             String content = intent.getStringExtra("content");
 
-            // Kiểm tra và gán dữ liệu vào các TextView
+            //  gán dữ liệu vào  TextView
             if (title != null && !title.isEmpty()) {
                 articleTitle.setText(title);
             }
@@ -39,9 +39,9 @@ public class FullArticlelActivity extends AppCompatActivity {
 
         }
         else {
-            // Xử lý nếu Intent không có dữ liệu
+
             Toast.makeText(this, "Không có dữ liệu để hiển thị", Toast.LENGTH_LONG).show();
-            finish(); // Kết thúc Activity nếu không có dữ liệu
+            finish();
         }
     }
 }

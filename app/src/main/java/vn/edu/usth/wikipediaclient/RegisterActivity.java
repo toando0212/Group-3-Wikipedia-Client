@@ -39,7 +39,7 @@ public class RegisterActivity extends AppCompatActivity {
 
             if (userDataBase.registerUser(username, password)) {
                 Toast.makeText(this, "Đăng ký thành công!", Toast.LENGTH_SHORT).show();
-                finish(); // Quay lại màn hình trước
+                finish();
             } else {
                 Toast.makeText(this, "Tên đăng nhập đã tồn tại!", Toast.LENGTH_SHORT).show();
             }

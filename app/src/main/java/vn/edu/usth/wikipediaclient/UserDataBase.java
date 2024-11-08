@@ -32,7 +32,7 @@ public class UserDataBase extends SQLiteOpenHelper {
         onCreate(db);
     }
 
-    // Đăng ký người dùng
+
     public boolean registerUser(String username, String password) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();

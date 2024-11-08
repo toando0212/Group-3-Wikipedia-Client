@@ -2,6 +2,7 @@ package vn.edu.usth.wikipediaclient;
 
 import android.content.Context;
 import android.content.Intent;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,27 +22,27 @@ public class ExploreAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
         this.articleList = articleList;
     }
 
+    @Override
     public int getItemViewType(int position) {
         // first article is featured
         if (position == 0) {
-            return 0;       //featured
+            return 0; // featured
         } else {
-            return 1;       //article
+            return 1; // article
         }
     }
 
-//    @NonNull
+    @NonNull
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         context = parent.getContext();
 
-        // assign layout for featured
         if (viewType == 0) {
             View view = LayoutInflater.from(context).inflate(R.layout.item_featured, parent, false);
             return new FeaturedViewHolder(view);
         } else {
             View view = LayoutInflater.from(context).inflate(R.layout.item_article, parent, false);
-            return  new ArticleViewHolder(view);
+            return new ArticleViewHolder(view);
         }
     }
 
@@ -49,32 +50,36 @@ public class ExploreAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
         Article article = articleList.get(position);
 
-        //assign data for featured
         if (holder.getItemViewType() == 0) {
-            FeaturedViewHolder featuredViewHolder = (FeaturedViewHolder) holder; //force type of holder from Recycler.ViewHolder to FeaturedViewHolder
-
+            FeaturedViewHolder featuredViewHolder = (FeaturedViewHolder) holder;
             featuredViewHolder.title.setText(article.getTitle());
             featuredViewHolder.description.setText(article.getDescription());
-//            featuredViewHolder.image.setImageResource(article.getImageResourceId());
-        }
-        // assign data for article
-        else {
-            ArticleViewHolder articleViewHolder = (ArticleViewHolder) holder; //force type of holder from Recycler.ViewHolder to ArticleViewHolder
-
+        } else {
+            ArticleViewHolder articleViewHolder = (ArticleViewHolder) holder;
             articleViewHolder.title.setText(article.getTitle());
             articleViewHolder.description.setText(article.getDescription());
-//            articleViewHolder.image.setImageResource(article.getImageResourceId());
         }
 
         Button fullArticleButton = holder.itemView.findViewById(R.id.buttonFullArticle);
         fullArticleButton.setBackgroundColor(context.getResources().getColor(android.R.color.darker_gray));
 
-        //handle click button Full Article event
+        // Handle click button Full Article event
         fullArticleButton.setOnClickListener(v -> {
+            // Lưu bài báo vào cơ sở dữ liệu lịch sử khi bấm xem chi tiết
+            HistoryDatabaseHelper historyDbHelper = new HistoryDatabaseHelper(context);
+            String currentDate = java.text.DateFormat.getDateTimeInstance().format(new java.util.Date());
+            boolean isInserted = historyDbHelper.addArticle(article.getTitle(), article.getContent(), currentDate);
+
+            if (!isInserted) {
+                Log.d("ExploreAdapter", "Bài báo đã tồn tại trong lịch sử hoặc lỗi xảy ra.");
+            } else {
+                Log.d("ExploreAdapter", "Bài báo đã được thêm vào lịch sử.");
+            }
+
+            // Chuyển đến FullArticlelActivity để xem chi tiết bài báo
             Intent intent = new Intent(context, FullArticlelActivity.class);
             intent.putExtra("title", article.getTitle());
-            intent.putExtra("content", article.getContent()); // Truyền nội dung chi tiết
-//            intent.putExtra("image", article.getImageResourceId());
+            intent.putExtra("content", article.getContent());
             context.startActivity(intent);
         });
     }
@@ -84,8 +89,6 @@ public class ExploreAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
         return articleList.size();
     }
 
-
-    //create view holder for featured
     public class FeaturedViewHolder extends RecyclerView.ViewHolder {
         TextView title, description, date, category;
         ImageView image;
@@ -93,11 +96,9 @@ public class ExploreAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
             super(itemView);
             title = itemView.findViewById(R.id.featuredTitle);
             description = itemView.findViewById(R.id.featuredDescription);
-//            image = itemView.findViewById(R.id.featuredImage);
         }
     }
 
-    //create view holder for article
     public class ArticleViewHolder extends RecyclerView.ViewHolder {
         TextView title, description;
         ImageView image;
@@ -106,7 +107,6 @@ public class ExploreAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
             title = itemView.findViewById(R.id.articleTitle);
             description = itemView.findViewById(R.id.articleDescription);
             image = itemView.findViewById(R.id.articleImage);
-
         }
     }
 }
