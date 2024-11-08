@@ -48,7 +48,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_ARTICLES);
         onCreate(db);
     }
-
     // Insert a new article
     public long addArticle(Article article) {
         SQLiteDatabase db = this.getWritableDatabase();
