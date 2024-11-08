@@ -30,18 +30,15 @@ public class FullArticlelActivity extends AppCompatActivity {
             // Kiểm tra và gán dữ liệu vào các TextView
             if (title != null && !title.isEmpty()) {
                 articleTitle.setText(title);
-            } else {
-                articleTitle.setText("Không có tiêu đề");
-                Toast.makeText(this, "Tiêu đề không được tìm thấy", Toast.LENGTH_SHORT).show();
             }
+
 
             if (content != null && !content.isEmpty()) {
                 articleContent.setText(content);
-            } else {
-                articleContent.setText("Không có nội dung");
-                Toast.makeText(this, "Nội dung không được tìm thấy", Toast.LENGTH_SHORT).show();
             }
-        } else {
+
+        }
+        else {
             // Xử lý nếu Intent không có dữ liệu
             Toast.makeText(this, "Không có dữ liệu để hiển thị", Toast.LENGTH_LONG).show();
             finish(); // Kết thúc Activity nếu không có dữ liệu
