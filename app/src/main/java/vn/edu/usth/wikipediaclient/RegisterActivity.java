@@ -7,6 +7,10 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
 public class RegisterActivity extends AppCompatActivity {
 
     @Override
@@ -39,6 +43,26 @@ public class RegisterActivity extends AppCompatActivity {
 
             if (userDataBase.registerUser(username, password)) {
                 Toast.makeText(this, "Đăng ký thành công!", Toast.LENGTH_SHORT).show();
+
+                ApiService apiService = ApiClient.getApiService();
+                Call<Void> call = apiService.register(new User(username, password));
+                call.enqueue(new Callback<Void>() {
+                    @Override
+                    public void onResponse(Call<Void> call, Response<Void> response) {
+                        if (response.isSuccessful()) {
+                            Toast.makeText(RegisterActivity.this, "Thông tin đã được gửi lên server thành công", Toast.LENGTH_SHORT).show();
+                        } else {
+                            Toast.makeText(RegisterActivity.this, "Lỗi khi gửi thông tin lên server", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<Void> call, Throwable t) {
+                        Toast.makeText(RegisterActivity.this, "Lỗi kết nối đến server", Toast.LENGTH_SHORT).show();
+                        t.printStackTrace(); // In log lỗi để kiểm tra chi tiết
+                    }
+                });
+
                 finish();
             } else {
                 Toast.makeText(this, "Tên đăng nhập đã tồn tại!", Toast.LENGTH_SHORT).show();

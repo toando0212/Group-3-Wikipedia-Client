@@ -35,21 +35,21 @@ app.post('/register', (req, res) => {
 });
 
 // API đăng nhập
-//app.post('/login', (req, res) => {
-//    const { username, password } = req.body;
-//    const query = `SELECT * FROM users WHERE username = ? AND password = ?`;
-//
-//    db_user.get(query, [username, password], (err, row) => {
-//        if (err) {
-//            return res.status(500).json({ message: "Lỗi khi đăng nhập" });
-//        }
-//        if (row) {
-//            res.json({ message: "Đăng nhập thành công", userId: row.id });
-//        } else {
-//            res.status(401).json({ message: "Sai tên đăng nhập hoặc mật khẩu" });
-//        }
-//    });
-//});
+app.post('/login', (req, res) => {
+    const { username, password } = req.body;
+    const query = `SELECT * FROM users WHERE username = ? AND password = ?`;
+
+    db_user.get(query, [username, password], (err, row) => {
+        if (err) {
+            return res.status(500).json({ message: "Lỗi khi đăng nhập" });
+        }
+        if (row) {
+            res.json({ message: "Đăng nhập thành công", userId: row.id });
+        } else {
+            res.status(401).json({ message: "Sai tên đăng nhập hoặc mật khẩu" });
+        }
+    });
+});
 
 // API thêm bài báo
 app.post('/add-article', (req, res) => {

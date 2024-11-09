@@ -8,6 +8,10 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
 public class LoginActivity extends AppCompatActivity {
 
     @Override
@@ -31,16 +35,29 @@ public class LoginActivity extends AppCompatActivity {
                 return;
             }
 
-            if (dbHelper.loginUser(username, password)) {
-                Toast.makeText(this, "Đăng nhập thành công!", Toast.LENGTH_SHORT).show();
+            // Gọi API để đăng nhập
+            ApiService apiService = ApiClient.getApiService();
+            Call<LoginResponse> call = apiService.login(new User(username, password));
+            call.enqueue(new Callback<LoginResponse>() {
+                @Override
+                public void onResponse(Call<LoginResponse> call, Response<LoginResponse> response) {
+                    if (response.isSuccessful() && response.body() != null) {
+                        Toast.makeText(LoginActivity.this, "Đăng nhập thành công!", Toast.LENGTH_SHORT).show();
+                        Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                        startActivity(intent);
+                        finish();
+                    } else {
+                        Toast.makeText(LoginActivity.this, "Sai tên đăng nhập hoặc mật khẩu!", Toast.LENGTH_SHORT).show();
+                        System.out.println("Phản hồi từ server: " + response.code() + " - " + response.message());
+                    }
+                }
 
-                // chuyển sang màn hình khác và xử lý logic sau khi đăng nhập
-                Intent intent = new Intent(LoginActivity.this, MainActivity.class); // MainActivity là màn hình chính của bạn
-                startActivity(intent);
-                finish();
-            } else {
-                Toast.makeText(this, "Sai tên đăng nhập hoặc mật khẩu!", Toast.LENGTH_SHORT).show();
-            }
+                @Override
+                public void onFailure(Call<LoginResponse> call, Throwable t) {
+                    Toast.makeText(LoginActivity.this, "Lỗi kết nối đến server", Toast.LENGTH_SHORT).show();
+                    t.printStackTrace(); // Thêm log để kiểm tra lỗi chi tiết
+                }
+            });
         });
     }
 }
