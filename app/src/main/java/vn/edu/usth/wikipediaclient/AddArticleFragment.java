@@ -10,6 +10,10 @@ import android.widget.EditText;
 import android.widget.Toast;
 import androidx.fragment.app.Fragment;
 
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
 public class AddArticleFragment extends Fragment {
 
     private EditText addArticleTitle, addArticleDescription, addArticleContent;
@@ -58,7 +62,38 @@ public class AddArticleFragment extends Fragment {
                 } else {
                     Toast.makeText(getContext(), "Có lỗi xảy ra khi lưu bài viết", Toast.LENGTH_SHORT).show();
                 }
+
+                // Lưu vào cơ sở dữ liệu cục bộ
+                if (databaseHelper.insertArticle(title, description, content) != -1) {
+                    Toast.makeText(getContext(), "Lưu bài viết thành công", Toast.LENGTH_SHORT).show();
+                    addArticleTitle.setText("");
+                    addArticleDescription.setText("");
+                    addArticleContent.setText("");
+
+                    // Gọi API để gửi bài viết lên server
+                    ApiService apiService = ApiClient.getApiService();
+                    Call<Void> call = apiService.addArticle(new Article(title, description, content, 0));
+                    call.enqueue(new Callback<Void>() {
+                        @Override
+                        public void onResponse(Call<Void> call, Response<Void> response) {
+                            if (response.isSuccessful()) {
+                                Toast.makeText(getContext(), "Đã gửi bài viết lên server thành công", Toast.LENGTH_SHORT).show();
+                            } else {
+                                Toast.makeText(getContext(), "Lỗi khi gửi bài viết lên server", Toast.LENGTH_SHORT).show();
+                            }
+                        }
+
+                        @Override
+                        public void onFailure(Call<Void> call, Throwable t) {
+                            Toast.makeText(getContext(), "Lỗi kết nối đến server", Toast.LENGTH_SHORT).show();
+                        }
+                    });
+
+                } else {
+                    Toast.makeText(getContext(), "Có lỗi xảy ra khi lưu bài viết", Toast.LENGTH_SHORT).show();
+                }
             }
+
         });
 
         return view;
