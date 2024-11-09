@@ -92,5 +92,4 @@ public class HistoryFragment extends Fragment {
         return view;
     }
 
-
 }
